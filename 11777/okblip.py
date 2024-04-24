@@ -46,7 +46,7 @@ def train_model(
     )
 
     optimizer = Adam(model.parameters(), lr=5e-6)
-
+    print("enter train")
     for epoch in range(1, epochs + 1):
         with tqdm(dataloader, unit="batch", desc=f"Epoch {epoch}") as tepoch:
             for inputs, _, answers in tepoch:
@@ -64,11 +64,11 @@ def train_model(
 
                 tepoch.set_postfix(loss=loss.item())
 
-        checkpoint_path = os.path.join(MODEL_DIR, f"{model_type}_epoch{epoch}.pt")
+        checkpoint_path = os.path.join(MODEL_DIR, f"{model_type}_epoch{epoch}_lhj_addMlpForImage.pt")
         torch.save(model.state_dict(), checkpoint_path)
         print(f"Model state saved at epoch {epoch} to {checkpoint_path}")
         eval_model(
-            model, processor, tokenizer, f"{model_type}_epoch{epoch}", batch_size
+            model, processor, tokenizer, f"{model_type}_epoch{epoch}_lhj", batch_size
         )
 
 
@@ -97,7 +97,7 @@ def inference_model(
     )
     results = []
     for inputs, question_ids, _ in tqdm(dataloader, desc=f"Evaluation"):
-
+        
         inputs = {k: v.to(device) for k, v in inputs.items()}
 
         with torch.no_grad():
@@ -146,7 +146,7 @@ def freeze_submodules(model: OKBLIP):
     modules = [
         model.bert.embeddings,
         model.bert.encoder.layer[:6],
-        # model.blip.vision_model,
+        model.blip.vision_model,
     ]
     for module in modules:
         for param in module.parameters():

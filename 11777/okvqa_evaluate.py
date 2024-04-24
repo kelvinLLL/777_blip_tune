@@ -5,9 +5,9 @@ import random
 
 from utils.vqa import VQA
 from utils.vqa_eval import VQAEval
-
-DATA_DIR = "/mnt/disks/okvqa/datasets/"
-EVAL_DIR = "/home/jasqwan/eval/"
+from utils.data import DATA_DIR, EVAL_DIR
+# DATA_DIR = "/mnt/disks/okvqa/datasets/"
+# EVAL_DIR = "/home/jasqwan/eval/"
 
 
 def generate_fake_results(

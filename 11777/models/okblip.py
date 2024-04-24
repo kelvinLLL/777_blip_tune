@@ -21,7 +21,15 @@ class OKBLIP(nn.Module):
         #     nn.ReLU(),
         #     nn.Linear(hidden_size, hidden_size),
         # )
+        # Change 1: Add Projection
+        hidden_size = self.blip.config.text_config.hidden_size
 
+        self.mlp = nn.Sequential(
+            nn.Linear(hidden_size, 4 * hidden_size),
+            nn.ReLU(),
+            nn.Linear(4 * hidden_size, hidden_size),
+        )
+        # Change 1 Ends
     def forward(
         self,
         input_ids: torch.LongTensor,
@@ -66,6 +74,12 @@ class OKBLIP(nn.Module):
         )
 
         image_embeds = vision_outputs[0]
+        
+        # Change 1
+        image_embeds = self.mlp(image_embeds)
+        # Change 1 ends
+
+
         image_attention_mask = torch.ones(
             image_embeds.size()[:-1], dtype=torch.long
         ).to(image_embeds.device)
