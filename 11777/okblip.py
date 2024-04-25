@@ -64,7 +64,7 @@ def train_model(
 
                 tepoch.set_postfix(loss=loss.item())
 
-        checkpoint_path = os.path.join(MODEL_DIR, f"{model_type}_epoch{epoch}_lhj_addMlpForImage.pt")
+        checkpoint_path = os.path.join(MODEL_DIR, f"{model_type}_epoch{epoch}_lhj_origin.pt")
         torch.save(model.state_dict(), checkpoint_path)
         print(f"Model state saved at epoch {epoch} to {checkpoint_path}")
         eval_model(
