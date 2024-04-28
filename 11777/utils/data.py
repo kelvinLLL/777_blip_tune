@@ -65,14 +65,14 @@ class OKVQADatasetKn(Dataset):
         with open(annotations_file_path, "r") as file:
             self.annotations_data = json.load(file)["annotations"]
         self.idx_toRemove = []
-        if data_subtype == "nothing`":
-            for i in range(9009):
-                score = self.calculate_score(self.annotations_data[i], self.knowledge_data[i])
-                if score == 0:
-                    self.idx_toRemove.append(i)
-            self.knowledge_data = [item for idx, item in enumerate(self.knowledge_data) if idx not in self.idx_toRemove]
-            self.questions_data = [item for idx, item in enumerate(self.questions_data) if idx not in self.idx_toRemove]
-            self.annotations_data = [item for idx, item in enumerate(self.annotations_data) if idx not in self.idx_toRemove]
+        #if data_subtype == "nothing`":
+        #    for i in range(9009):
+        #        score = self.calculate_score(self.annotations_data[i], self.knowledge_data[i])
+        #        if score == 0:
+        #            self.idx_toRemove.append(i)
+        #    self.knowledge_data = [item for idx, item in enumerate(self.knowledge_data) if idx not in self.idx_toRemove]
+        #    self.questions_data = [item for idx, item in enumerate(self.questions_data) if idx not in self.idx_toRemove]
+        #    self.annotations_data = [item for idx, item in enumerate(self.annotations_data) if idx not in self.idx_toRemove]
 
         self.data_dir = data_dir
         self.data_subtype = data_subtype
